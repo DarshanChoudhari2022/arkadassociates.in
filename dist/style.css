@@ -6,6 +6,8 @@ a { color:inherit; text-decoration:none }
 a:hover { text-decoration:underline; text-underline-offset:4px }
 :focus-visible { outline:3px solid #ad833e; outline-offset:4px }
 header { display:flex; justify-content:space-between; align-items:center; gap:20px; padding:18px 6.5%; border-bottom:1px solid var(--line) }
+.header-logo { display:flex; align-items:center; gap:clamp(6px,1vw,12px); min-width:0 }
+.header-logo img { display:block; flex:none; height:clamp(46px,6vw,72px); width:auto }
 .brand { font-size:clamp(1.13rem,2vw,1.8rem); font-weight:750; letter-spacing:-.065em; line-height:1.1 }
 nav { display:flex; gap:2.4vw; font-size:.9rem }
 .button { display:inline-block; background:#422f10; border:0; color:#fff9ed; padding:12px 21px; font:600 .89rem/1.4 Arial,sans-serif; cursor:pointer }
@@ -44,7 +46,7 @@ footer { background:#422e09; color:#faf4e7; padding:52px 6.5% 22px }
 }
 @media(max-width:560px) {
   header { padding:10px 5% 0 }
-  header .brand { flex:1; min-width:0 }
+  .header-logo { flex:1; font-size:clamp(.98rem,4.3vw,1.22rem); letter-spacing:-.035em }
   .headbtn { flex:none; padding-inline:12px }
   nav { border-top:1px solid var(--line); justify-content:space-between; gap:0 }
   nav a { padding-inline:4px }
