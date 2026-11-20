@@ -88,8 +88,8 @@ if (window.gsap && window.ScrollTrigger) {
       defaults:{ease:'none'},
       scrollTrigger:{
         trigger:sequence, start:'center center',
-        end:() => '+=' + Math.round(window.innerHeight * 1.45),
-        pin:true, scrub:0.7, invalidateOnRefresh:true
+        end:() => '+=' + Math.round(window.innerHeight * (window.innerWidth <= 700 ? 0.58 : 1.45)),
+        pin:true, scrub:0.55, invalidateOnRefresh:true
       }
     });
     timeline.to('.hero-word', {yPercent:-30, duration:1}, 0)
@@ -97,13 +97,24 @@ if (window.gsap && window.ScrollTrigger) {
       .to('.hero-stage', {autoAlpha:0, duration:0.45}, 0.55)
       .fromTo('.statement', {autoAlpha:0, y:28}, {autoAlpha:1, y:0, duration:0.5}, 0.85)
       .fromTo(words, {color:'#aca699'}, {color:getComputedStyle(statement).color, duration:0.22, stagger:0.04}, 1.05);
-    gsap.to('.scroll-ring', {rotation:65, transformOrigin:'50% 50%', ease:'none', scrollTrigger:{trigger:'.banner', start:'top bottom', end:'top top', scrub:true}});
-    document.querySelectorAll('main > .section, .facts').forEach(section => {
-      gsap.from(section, {
-        transformPerspective:1200, rotationX:4, z:-36, y:22,
-        transformOrigin:'50% 15%', ease:'none',
-        scrollTrigger:{trigger:section, start:'top bottom', end:'top 55%', scrub:0.4}
+    const chapters = document.querySelectorAll('.facts, .banner, main > .section, footer');
+    chapters.forEach(section => {
+      const isFooter = section.matches('footer');
+      const reveal = section.querySelector('h2, img, .wordmark') || section.children;
+      const chapter = gsap.timeline({
+        defaults:{ease:'none'},
+        scrollTrigger:{
+          trigger:section,
+          start:isFooter ? 'bottom bottom' : 'top top',
+          end:() => '+=' + Math.round(Math.min(window.innerHeight * (window.innerWidth <= 700 ? 0.14 : 0.24), 220)),
+          pin:true,
+          scrub:0.35,
+          invalidateOnRefresh:true
+        }
       });
+      chapter.fromTo(reveal, {y:8, scale:0.98}, {y:0, scale:1, clearProps:'transform'});
+      const ring = section.querySelector('.scroll-ring');
+      if (ring) chapter.to(ring, {rotation:65, transformOrigin:'50% 50%'}, 0);
     });
     const refresh = () => ScrollTrigger.refresh();
     window.addEventListener('load', refresh, {once:true});

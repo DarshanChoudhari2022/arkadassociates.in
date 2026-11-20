@@ -188,6 +188,16 @@ details p { padding:0 4px }
 }
 main { overflow-x:clip }
 html.lenis { scroll-behavior:auto }
+body { overflow-x:clip }
+footer { background:linear-gradient(180deg,#614617 0%,var(--ink) 46%,#322105 100%) }
+footer .wordmark { opacity:.38; mask-image:linear-gradient(#000 5%,transparent 105%) }
+@media(max-width:560px) {
+  footer { padding:28px 6% 12px }
+  .footer-grid { gap:14px 20px }
+  .footer-grid > :first-child { padding-bottom:14px; border-bottom:1px solid #fff5df33 }
+  .footer-grid a:not(.brand) { line-height:1.35; padding-block:5px }
+  footer .wordmark { margin-top:20px }
+}
 .hero-sequence { overflow:clip; text-align:center }
 .hero-sequence.is-pinned { display:grid; align-items:center; min-height:76svh; background:var(--paper) }
 .is-pinned > .hero-stage,.is-pinned > .statement { grid-area:1 / 1; width:100% }
